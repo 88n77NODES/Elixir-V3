@@ -6,6 +6,11 @@ GREEN='\e[38;5;46m'
 YELLOW='\e[38;5;226m'
 RESET='\e[0m'
 
+echo "===================================================="
+wget https://raw.githubusercontent.com/88n77/Logo-88n77/main/logo.sh
+chmod +x logo.sh
+./logo.sh
+
 echo -e "${GREEN}====================================================${RESET}"
 echo -e "${GREEN}Оновлення залежностей...${RESET}"
 sudo apt update && sudo apt upgrade -y
