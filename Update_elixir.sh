@@ -28,9 +28,11 @@ docker ps -a | grep elixir | awk '{print $1}' | xargs docker rm || echo -e "${YE
 echo -e "${GREEN}Встановлюємо оновлення...${RESET}"
 docker pull elixirprotocol/validator:v3 --platform linux/amd64
 
+echo -e "${GREEN}====================================================${RESET}"
+echo -e "${GREEN}Ноду оновлено!Запуск..${RESET}"
+
 # 5. Запуск нового контейнера
 echo -e "${GREEN}Запускаємо новий контейнер...${RESET}"
 docker run --name elixir --env-file validator.env --platform linux/amd64 -p 17690:17690 --restart unless-stopped elixirprotocol/validator:v3
 
-echo -e "${GREEN}====================================================${RESET}"
-echo -e "${GREEN}Ноду оновлено!${RESET}"
+
