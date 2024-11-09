@@ -11,23 +11,17 @@ echo -e "${GREEN}====================================================${RESET}"
 echo -e "${GREEN}Перехід до директорії elixir...${RESET}"
 cd elixir || { echo -e "${YELLOW}Директорія elixir не знайдена${RESET}"; exit 1; }
 
-# 2. Зупинка контейнерів elixir
-echo -e "${GREEN}Зупинка контейнерів elixir...${RESET}"
-docker ps -a | grep elixir | awk '{print $1}' | xargs docker stop || echo -e "${YELLOW}Контейнерів не знайдено${RESET}"
-
-# 3. Видалення старих контейнерів elixir
 echo -e "${GREEN}Видалення старих контейнерів elixir...${RESET}"
-docker ps -a | grep elixir | awk '{print $1}' | xargs docker rm || echo -e "${YELLOW}Контейнерів не знайдено${RESET}"
+docker kill elixir && \ echo -e "${YELLOW}Контейнерів не знайдено${RESET}"
+docker rm elixir && \
 
-# 4. Завантаження нового Docker-образу
 echo -e "${GREEN}Встановлюємо оновлення...${RESET}"
-docker pull elixirprotocol/validator:v3 --platform linux/amd64
+docker pull elixirprotocol/validator:testnet --platform linux/amd64 && \
 
 echo -e "${GREEN}====================================================${RESET}"
 echo -e "${GREEN}Ноду оновлено!Запуск..${RESET}"
 
-# 5. Запуск нового контейнера
 echo -e "${GREEN}Запускаємо новий контейнер...${RESET}"
-docker run --name elixir --env-file validator.env --platform linux/amd64 -p 17690:17690 --restart unless-stopped elixirprotocol/validator:v3
+docker run --env-file /root/elixir/validator.env --platform linux/amd64 --name elixir -p 17690:17690 elixirprotocol/validator:testnet
 
 
